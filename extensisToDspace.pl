@@ -24,10 +24,10 @@ while ( my $row = <DATA> ) {
 
 	# get image path
 	$imagePath = getImagePath(\@cells);
-	
+	print $imagePath."\n";
 	# get image file name (used as title too)
 	$imageName = getImageFileName(\@cells);
-
+	
       	# get current directory name (collection name)
 	$collectionTitle = getCurrentDirectoryName(\@cells);
 
@@ -35,25 +35,32 @@ while ( my $row = <DATA> ) {
 	$imageAuthor = getAuthor(\@cells);
 	
 	# create xml file
+	createXMLFile($imagePath, $imageName, $collectionTitle, $imageAuthor);
 
 	# append to contents file	
 
 }
 
-# createXMLFIle
+# createXMLFile
 # This subprocedure creates a Dublin Core XML file describing an image
 # Input: imagePath, imageFileName, collectionName, author
 sub createXMLFile { 
+	my $imagePath       = $_[0];
+	my $imageName       = $_[1];
+	my $collectionTitle = $_[2];
+	my $imageAuthor     = $_[3];
 
+	#open FILE, ">", "$imagePath.$XML_FILE" or die $!
+	#print $imagePath.$XML_FILE;
 }
 
 sub getImagePath {
- my @cells = @{$_[0]};
- my $string;
- $cells[74]=~s/:/\//g;
- $string = $cells[74];
- $string = substr $string,4;
- return $string;
+	my @cells = @{$_[0]};
+	my $string;
+	$cells[74]=~s/:/\//g;
+	$string = $cells[74];
+	$string = substr $string,4;
+	return $string;
 }
 
 sub getImageFileName {
