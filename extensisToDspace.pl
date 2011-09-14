@@ -98,7 +98,9 @@ sub getImagePath {
 }
 
 sub getImageFileName {
-	return $_[0][33];
+	my $filename = $_[0][33];
+	$filename =~ s/\000//g;
+	return $filename;
 }
 
 sub getCurrentDirectoryName {
@@ -106,9 +108,13 @@ sub getCurrentDirectoryName {
 	$cells[74]=~s/:/\//g;
 	my $string = $cells[74];
 	my @dirname = split '/', $string;
-	return $dirname[-2]; 
+	my $name = $dirname[-2];
+	$name =~ s/\000//g;
+	return $name; 
 }
 
 sub getAuthor {
-	return $_[0][4];
+	my $author = $_[0][4];
+	$author =~ s/\000//g;
+	return $author;
 }	
